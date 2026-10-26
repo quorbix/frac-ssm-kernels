@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frac-ssm"
+version = "0.1.0"
+description = "Fractional state-space models and optimized scan kernels"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.10",
+    "triton>=3.6",
+    "transformers>=4.57",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.optional-dependencies]
+cute = ["nvidia-cutlass-dsl>=4.6", "cuda-python"]
+test = ["flash-linear-attention"]
+
+[tool.setuptools.packages.find]
+include = ["frac_ssm*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+filterwarnings = [
+    "ignore::DeprecationWarning:torch.jit._script",
+]
